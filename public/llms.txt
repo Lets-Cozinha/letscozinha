@@ -1,0 +1,33 @@
+# Lets Cozinha
+
+> Site de receitas culinárias brasileiro criado por Lets. Oferece receitas gratuitas organizadas por categorias e vende e-books culinários em PDF. Todo o conteúdo está em português do Brasil.
+
+Lets Cozinha é um site de culinária focado em receitas práticas e acessíveis para o dia a dia. A autora, Lets, compartilha receitas gratuitamente e comercializa e-books culinários com coleções temáticas de receitas exclusivas.
+
+Cada receita, e-book e categoria possui uma versão em Markdown acessível adicionando `.md` ao final da URL (ex.: `/receitas/bolo-de-chocolate.md`).
+
+## Conteúdo
+
+- [Receitas](https://www.letscozinha.com.br/receitas.md): Lista completa de todas as receitas com links para as páginas individuais em Markdown
+- [E-books](https://www.letscozinha.com.br/ebooks.md): Catálogo completo de e-books culinários disponíveis para compra
+- [Categorias](https://www.letscozinha.com.br/categorias.md): Todas as categorias culinárias com suas respectivas receitas
+
+## Páginas principais
+
+- [Home](https://www.letscozinha.com.br/): Página inicial com receitas em destaque e e-books
+- [Receitas](https://www.letscozinha.com.br/receitas): Listagem de todas as receitas com busca
+- [Todas as receitas](https://www.letscozinha.com.br/receitas/todas-as-receitas): Arquivo completo de receitas
+- [Categorias](https://www.letscozinha.com.br/categorias): Receitas organizadas por categoria culinária
+- [E-books](https://www.letscozinha.com.br/ebooks): Catálogo de e-books culinários disponíveis para compra
+- [Conheça a Lets](https://www.letscozinha.com.br/conheca-a-lets): Sobre a autora e o projeto
+- [Contato](https://www.letscozinha.com.br/contato): Formulário de contato
+
+## Recursos técnicos
+
+- [Sitemap](https://www.letscozinha.com.br/sitemap.xml): Mapa completo do site em XML
+- [Feed RSS](https://www.letscozinha.com.br/api/feed.xml): Feed RSS com as receitas mais recentes
+
+## Optional
+
+- [Política de Privacidade](https://www.letscozinha.com.br/politica-de-privacidade): Política de privacidade do site
+- [Termos de Uso](https://www.letscozinha.com.br/termos-de-uso): Termos de uso do site
