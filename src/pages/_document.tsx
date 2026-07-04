@@ -5,6 +5,7 @@ export default function Document() {
     <Html lang="pt-br">
       <Head>
         <link rel="alternate" type="application/rss+xml" href="/api/feed.xml" />
+        <link rel="alternate" type="text/markdown" title="LLM-friendly version" href="/llms.txt" />
       </Head>
       <body>
         <Main />
