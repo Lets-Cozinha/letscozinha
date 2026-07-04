@@ -9,7 +9,6 @@ import { getLetsCozinha, getLetsCozinhaLets } from 'src/cms/singleTypes';
 import { getLetsSchema } from 'src/methods/getLetsSchema';
 import { getPageTitle } from 'src/methods/getPageTitle';
 import { getUrl } from 'src/methods/getUrl';
-import { getWebsiteName } from 'src/methods/getWebsiteName';
 import { SocialNav } from 'src/components/SocialNav';
 import type { Recipe } from 'src/cms/recipes';
 import { getAsideData, type AsideData } from 'src/methods/getAsideData';
@@ -48,7 +47,6 @@ export default function ConhecaALets({
         <meta property="og:image" content={letsProfile.imagem.url} />
         <meta property="og:url" content={getUrl('/conheca-a-lets')} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={getWebsiteName()} />
       </Head>
 
       <JsonLd schema={letsSchema} />

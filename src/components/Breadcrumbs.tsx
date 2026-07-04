@@ -28,9 +28,10 @@ export function Breadcrumbs({
 
   return (
     <nav aria-label="breadcrumb" className="py-2">
-      <script type="application/ld+json">
-        {JSON.stringify(breadcrumbSchema)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <ol className="flex flex-wrap items-center text-sm text-text-light">
         {normalizedItems.map((breadcrumb, index) => (
           <li

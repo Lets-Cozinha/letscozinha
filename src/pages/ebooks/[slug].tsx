@@ -10,7 +10,7 @@ import { Markdown } from 'src/components/Markdown';
 import { getEbook, getAllEbooks, type Ebook } from 'src/cms/ebooks';
 import { getPageTitle } from 'src/methods/getPageTitle';
 import { getUrl } from 'src/methods/getUrl';
-import { getWebsiteName } from 'src/methods/getWebsiteName';
+
 import { getAsideData, type AsideData } from 'src/methods/getAsideData';
 
 type Props = {
@@ -99,7 +99,6 @@ export default function EbookPage({ ebook, descricaoCompiledSource, paginaWebsit
         <meta property="og:description" content={ebook.meta_descricao} />
         <meta property="og:url" content={url} />
         <meta property="og:type" content="article" />
-        <meta property="og:site_name" content={getWebsiteName()} />
         {ebook.imagem?.url && (
           <meta property="og:image" content={ebook.imagem.url} />
         )}

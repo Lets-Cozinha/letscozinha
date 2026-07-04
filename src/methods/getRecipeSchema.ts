@@ -11,10 +11,6 @@ import type { Recipe } from 'src/cms/recipes';
 export async function getRecipeSchema(
   recipe: Recipe
 ): Promise<RecipeSchema | null> {
-  if (!recipe.imagens) {
-    return null;
-  }
-
   const receitaJson = await getMarkdownAst(recipe.receita);
 
   const ingredientesHeadingIndex = receitaJson.children.findIndex(
@@ -184,9 +180,9 @@ export async function getRecipeSchema(
     '@type': 'Recipe',
     name: recipe.nome,
     url: getRecipeUrl(recipe),
-    image: recipe.imagens?.map((image) => {
-      return getImageSchema(image);
-    }),
+    ...(recipe.imagens?.length
+      ? { image: recipe.imagens.map((image) => getImageSchema(image)) }
+      : {}),
     author: await getLetsSchema(),
     datePublished: recipe.updatedAt,
     description: recipe.meta_descricao,

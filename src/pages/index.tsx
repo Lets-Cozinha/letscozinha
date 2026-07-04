@@ -63,6 +63,8 @@ export default function Home({
           content="receitas deliciosas, pratos gourmet, dicas de culinária, tutoriais de cozinha"
         />
         <link rel="canonical" href={BASE_URL} />
+        <meta property="og:title" content={getPageTitle('Receitas deliciosas para todas as ocasiões')} />
+        <meta property="og:description" content="Descubra todos os tipos de receitas. Encontre pratos deliciosos para todas as ocasiões, desde sobremesas até refeições completas." />
         <meta property="og:url" content={BASE_URL} />
         <meta property="og:type" content="website" />
         <meta
@@ -72,6 +74,10 @@ export default function Home({
       </Head>
 
       <JsonLd schema={websiteSchema} />
+
+      {!heroEbook && (
+        <h1 className="sr-only">Receitas deliciosas para todas as ocasiões</h1>
+      )}
 
       {/* Hero - apenas na home */}
       {heroEbook && (
