@@ -18,7 +18,7 @@ type Props = {
 };
 
 function EbookHero({ ebook }: { ebook: Ebook }) {
-  const imageSrc = ebook.imagem.formats.medium?.url || ebook.imagem.url;
+  const imageSrc = ebook.imagem.formats?.medium?.url || ebook.imagem.url;
 
   return (
     <div className="grid lg:grid-cols-2 gap-xl items-center">

@@ -106,7 +106,7 @@ export function RecipeImages({ images }: { images: CMSImages }) {
 
   // Utilizando a nova função para obter props otimizadas para a imagem principal
   const activeImageData =
-    images[activeImage].formats.small || images[activeImage];
+    images[activeImage].formats?.small || images[activeImage];
   const mainImageProps = getOptimizedImageProps(activeImageData, {
     defaultWidth: 672,
     defaultHeight: 504, // proporção 4:3
@@ -207,7 +207,7 @@ export function RecipeImages({ images }: { images: CMSImages }) {
                 onClick={() => setActiveImage(index)}
               >
                 <Image
-                  src={image.formats.thumbnail?.url || image.url}
+                  src={image.formats?.thumbnail?.url || image.url}
                   alt={`Imagem ${index + 1}`}
                   width={80}
                   height={80}
