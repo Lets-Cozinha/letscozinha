@@ -66,7 +66,7 @@ export default function RecipeCard({
   priority = false,
   variant = 'default',
 }: RecipeCardProps) {
-  const image = recipe.imagens?.[0].formats.small || recipe.imagens?.[0];
+  const image = recipe.imagens?.[0].formats?.small || recipe.imagens?.[0];
   const href = `/receitas/${recipe.slug}`;
 
   const isCompact = variant === 'compact';
