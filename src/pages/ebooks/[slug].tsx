@@ -2,6 +2,7 @@ import * as React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import { serialize } from 'next-mdx-remote-client/serialize';
 import { Content } from 'src/components/Content';
 import { JsonLd } from 'src/components/JsonLd';
 import { LinkButton } from 'src/components/LinkButton';
@@ -15,16 +16,18 @@ import { getAsideData, type AsideData } from 'src/methods/getAsideData';
 type Props = {
   ebook: Ebook;
   asideData: AsideData;
+  descricaoCompiledSource: string;
+  paginaWebsiteCompiledSource: string;
 };
 
-function EbookHero({ ebook }: { ebook: Ebook }) {
+function EbookHero({ ebook, descricaoCompiledSource }: { ebook: Ebook; descricaoCompiledSource: string }) {
   const imageSrc = ebook.imagem.formats?.medium?.url || ebook.imagem.url;
 
   return (
     <div className="grid lg:grid-cols-2 gap-xl items-center">
       <div className="order-2 lg:order-1">
         <div className="text-text-light text-lg mb-lg leading-relaxed">
-          <Markdown source={ebook.descricao} />
+          <Markdown compiledSource={descricaoCompiledSource} />
         </div>
         <div className="space-y-sm">
           {ebook.preco && (
@@ -65,7 +68,7 @@ function EbookHero({ ebook }: { ebook: Ebook }) {
   );
 }
 
-export default function EbookPage({ ebook }: Props) {
+export default function EbookPage({ ebook, descricaoCompiledSource, paginaWebsiteCompiledSource }: Props) {
   const url = getUrl(`/ebooks/${ebook.slug}`);
   const title = getPageTitle(ebook.titulo);
 
@@ -114,12 +117,12 @@ export default function EbookPage({ ebook }: Props) {
         ]}
       >
         <Content.Section variant="content">
-          <EbookHero ebook={ebook} />
+          <EbookHero ebook={ebook} descricaoCompiledSource={descricaoCompiledSource} />
         </Content.Section>
 
         <Content.Section variant="content">
           <article className="prose prose-lg">
-            <Markdown source={ebook.pagina_website} />
+            <Markdown compiledSource={paginaWebsiteCompiledSource} />
           </article>
         </Content.Section>
 
@@ -192,13 +195,31 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     return { notFound: true };
   }
 
+  const [descricaoResult, paginaWebsiteResult] = await Promise.allSettled([
+    serialize({ source: ebook.descricao ?? '' }),
+    serialize({ source: ebook.pagina_website ?? '' }),
+  ]);
+
   const asideData =
     asideDataResult.status === 'fulfilled'
       ? asideDataResult.value
       : { featuredEbook: null, letsProfile: null, categoriesWithCounts: [], siteDescricao: null };
 
   return {
-    props: { ebook, asideData },
+    props: {
+      ebook,
+      asideData,
+      descricaoCompiledSource:
+        descricaoResult.status === 'fulfilled' &&
+        'compiledSource' in descricaoResult.value
+          ? descricaoResult.value.compiledSource
+          : '',
+      paginaWebsiteCompiledSource:
+        paginaWebsiteResult.status === 'fulfilled' &&
+        'compiledSource' in paginaWebsiteResult.value
+          ? paginaWebsiteResult.value.compiledSource
+          : '',
+    },
     revalidate: 3600,
   };
 };

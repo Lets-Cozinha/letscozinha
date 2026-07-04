@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import type { GetStaticProps } from 'next';
+import { serialize } from 'next-mdx-remote-client/serialize';
 import { Markdown } from 'src/components/Markdown';
 import { getLetsCozinhaPoliticas } from 'src/cms/singleTypes';
 import { getPageTitle } from 'src/methods/getPageTitle';
@@ -7,11 +8,11 @@ import { getUrl } from 'src/methods/getUrl';
 import { getAsideData, type AsideData } from 'src/methods/getAsideData';
 
 type Props = {
-  content: string;
+  compiledSource: string;
   asideData: AsideData;
 };
 
-export default function PoliticaDePrivacidade({ content }: Props) {
+export default function PoliticaDePrivacidade({ compiledSource }: Props) {
   return (
     <>
       <Head>
@@ -22,7 +23,7 @@ export default function PoliticaDePrivacidade({ content }: Props) {
         />
         <link rel="canonical" href={getUrl('/politica-de-privacidade')} />
       </Head>
-      <Markdown source={content} />
+      <Markdown compiledSource={compiledSource} />
     </>
   );
 }
@@ -42,9 +43,13 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       ? asideDataResult.value
       : { featuredEbook: null, letsProfile: null, categoriesWithCounts: [], siteDescricao: null };
 
+  const serializeResult = await serialize({
+    source: politicasResult.value.letsCozinhaPoliticas.politica_de_privacidade ?? '',
+  });
+
   return {
     props: {
-      content: politicasResult.value.letsCozinhaPoliticas.politica_de_privacidade,
+      compiledSource: 'compiledSource' in serializeResult ? serializeResult.compiledSource : '',
       asideData,
     },
     revalidate: 3600,
