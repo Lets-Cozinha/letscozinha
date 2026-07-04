@@ -10,7 +10,6 @@ import { searchRecipes, getRecipesWithPagination } from 'src/cms/recipes';
 import type { Recipe } from 'src/cms/recipes';
 import type { CMSMeta } from 'src/cms/types';
 import { getUrl } from 'src/methods/getUrl';
-import { getWebsiteName } from 'src/methods/getWebsiteName';
 import { getAsideData, type AsideData } from 'src/methods/getAsideData';
 
 const title = getPageTitle('Busque e Descubra Novos Sabores');
@@ -41,9 +40,10 @@ export default function ReceitasPage({
           content="todas as receitas, buscar receitas, receitas por ingredientes, receitas rápidas"
         />
         <link rel="canonical" href={getUrl('/receitas')} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:url" content={getUrl('/receitas')} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={getWebsiteName()} />
         <meta
           property="og:image"
           content="https://www.letscozinha.com.br/opengraph-image.jpg"

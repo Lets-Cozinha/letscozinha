@@ -9,7 +9,6 @@ import { getRecipes } from 'src/cms/recipes';
 import type { Recipe } from 'src/cms/recipes';
 import type { CMSMeta } from 'src/cms/types';
 import { getUrl } from 'src/methods/getUrl';
-import { getWebsiteName } from 'src/methods/getWebsiteName';
 import { getAsideData, type AsideData } from 'src/methods/getAsideData';
 
 type Props = {
@@ -30,9 +29,12 @@ export default function CategoryPage({ category, recipes, pagination }: Props) {
         <meta name="description" content={description} />
         <link rel="canonical" href={getUrl(`/categorias/${category.slug}`)} />
         <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:url" content={getUrl(`/categorias/${category.slug}`)} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={getWebsiteName()} />
+        {category.imagens?.[0]?.url && (
+          <meta property="og:image" content={category.imagens[0].url} />
+        )}
       </Head>
 
       <div className="flex flex-col">

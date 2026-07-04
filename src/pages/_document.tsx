@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="pt-br">
       <Head>
-        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+        <link rel="alternate" type="application/rss+xml" href="/api/feed.xml" />
       </Head>
       <body>
         <Main />

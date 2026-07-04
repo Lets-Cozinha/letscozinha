@@ -3,7 +3,6 @@ import type { GetStaticProps } from 'next';
 import { CategoriesList, type CategoryWithCount } from 'src/components/CategoriesList';
 import { getPageTitle } from 'src/methods/getPageTitle';
 import { getUrl } from 'src/methods/getUrl';
-import { getWebsiteName } from 'src/methods/getWebsiteName';
 import { getAsideData, type AsideData } from 'src/methods/getAsideData';
 
 type Props = {
@@ -25,9 +24,10 @@ export default function CategoriesPage({ categoriesWithCounts }: Props) {
           content="categorias, tipos de receitas, categorias de receitas"
         />
         <link rel="canonical" href={getUrl('/categorias')} />
+        <meta property="og:title" content={getPageTitle('Categorias')} />
+        <meta property="og:description" content="Veja todas as categorias disponíveis no Lets Cozinha." />
         <meta property="og:url" content={getUrl('/categorias')} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={getWebsiteName()} />
         <meta
           property="og:image"
           content="https://www.letscozinha.com.br/opengraph-image.jpg"

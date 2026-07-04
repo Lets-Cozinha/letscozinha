@@ -4,6 +4,7 @@ import { RecipesList } from 'src/components/RecipesList';
 import { getLetsCozinha } from 'src/cms/singleTypes';
 import type { Recipe } from 'src/cms/recipes';
 import { getAsideData, type AsideData } from 'src/methods/getAsideData';
+import { getPageTitle } from 'src/methods/getPageTitle';
 
 type Props = {
   fallbackRecipes: Recipe[];
@@ -14,10 +15,11 @@ export default function NotFound({ fallbackRecipes }: Props) {
   return (
     <>
       <Head>
-        <title>Página não encontrada | Lets Cozinha</title>
+        <title>{getPageTitle('Página não encontrada')}</title>
+        <meta name="description" content="A página que você está procurando não foi encontrada. Explore nossas receitas deliciosas." />
       </Head>
       <div className="flex flex-col gap-md mt-md items-center text-center">
-        <h2>Ops, página não encontrada</h2>
+        <h1>Ops, página não encontrada</h1>
         <p className="max-w-[30rem]">
           Desculpe, mas a página que você está procurando não foi encontrada.
         </p>

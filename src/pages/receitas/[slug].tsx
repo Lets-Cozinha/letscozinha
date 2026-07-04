@@ -22,8 +22,7 @@ import { EmailSubscription } from 'src/components/EmailSubscription';
 import { getLetsCozinhaLets } from 'src/cms/singleTypes';
 import { getRecipeSchema } from 'src/methods/getRecipeSchema';
 import { getUrl } from 'src/methods/getUrl';
-import { getWebsiteName } from 'src/methods/getWebsiteName';
-import { FB_APP_ID, WEBSITE_NAME } from 'src/constants';
+import { WEBSITE_NAME } from 'src/constants';
 import { EbookCard } from 'src/components/EbookCard';
 import { ExclusiveRecipePreview } from 'src/components/ExclusiveRecipePreview';
 import { getAsideData, type AsideData } from 'src/methods/getAsideData';
@@ -82,11 +81,9 @@ export default function RecipePage({
         <meta property="og:description" content={description} />
         <meta property="og:url" content={url} />
         <meta property="og:type" content="article" />
-        <meta property="og:site_name" content={getWebsiteName()} />
         {recipe.imagens?.[0]?.url && (
           <meta property="og:image" content={recipe.imagens[0].url} />
         )}
-        <meta property="fb:app_id" content={FB_APP_ID} />
       </Head>
 
       <JsonLd schema={recipeSchema} />

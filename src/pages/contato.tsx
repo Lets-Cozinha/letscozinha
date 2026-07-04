@@ -35,7 +35,6 @@ export default function Contact({ letsProfile }: Props) {
         <meta property="og:description" content={description} />
         <meta property="og:url" content={url} />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={getWebsiteName()} />
         <meta
           property="og:image"
           content="https://www.letscozinha.com.br/opengraph-image.jpg"
