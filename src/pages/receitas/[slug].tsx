@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import type { GetStaticPaths, GetStaticProps } from 'next';
+import { serialize } from 'next-mdx-remote-client/serialize';
 import { Content } from 'src/components/Content';
 import { CategoryTag } from 'src/components/CategoryTag';
 import { JsonLd } from 'src/components/JsonLd';
@@ -37,6 +38,7 @@ type Props = {
   recommendedEbook: Ebook | null;
   exclusiveInstructions: string[];
   asideData: AsideData;
+  receitaCompiledSource: string;
 };
 
 export default function RecipePage({
@@ -45,6 +47,7 @@ export default function RecipePage({
   similarRecipes,
   recommendedEbook,
   exclusiveInstructions,
+  receitaCompiledSource,
 }: Props) {
   const isExclusiveRecipe = !!recipe.mostrar_ebook;
 
@@ -133,7 +136,7 @@ export default function RecipePage({
               recipeName={recipe.nome}
             />
           ) : (
-            <Markdown source={recipe.receita} />
+            <Markdown compiledSource={receitaCompiledSource} />
           )}
         </Content.Section>
 
@@ -207,12 +210,14 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
     similarRecipesResult,
     recommendedEbookResult,
     asideDataResult,
+    receitaSerializeResult,
   ] = await Promise.allSettled([
     getLetsCozinhaLets(),
     getRecipeSchema(recipe),
     searchSimilarRecipes({ recipe }),
     getRecommendedEbook(recipe),
     getAsideData(),
+    serialize({ source: recipe.receita ?? '' }),
   ]);
 
   // O schema é construído em código e pode conter campos `undefined`
@@ -254,6 +259,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
           : null,
       exclusiveInstructions,
       asideData,
+      receitaCompiledSource:
+        receitaSerializeResult.status === 'fulfilled' &&
+        'compiledSource' in receitaSerializeResult.value
+          ? receitaSerializeResult.value.compiledSource
+          : '',
     },
     revalidate: 3600,
   };

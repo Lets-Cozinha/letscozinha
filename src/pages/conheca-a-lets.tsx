@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import type { GetStaticProps } from 'next';
+import { serialize } from 'next-mdx-remote-client/serialize';
 import { JsonLd } from 'src/components/JsonLd';
 import { Markdown } from 'src/components/Markdown';
 import { RecipesList } from 'src/components/RecipesList';
@@ -25,12 +26,14 @@ type Props = {
   favoriteRecipes: Recipe[];
   letsSchema: any;
   asideData: AsideData;
+  textoCompletoCompiledSource: string;
 };
 
 export default function ConhecaALets({
   letsProfile,
   favoriteRecipes,
   letsSchema,
+  textoCompletoCompiledSource,
 }: Props) {
   const title = getPageTitle(letsProfile.nome);
 
@@ -88,7 +91,7 @@ export default function ConhecaALets({
 
         <section className="max-w-4xl mx-auto">
           <div className="prose prose-lg prose-headings:font-heading prose-headings:text-text-dark prose-p:text-text-light prose-a:text-primary">
-            <Markdown source={letsProfile.texto_completo} />
+            <Markdown compiledSource={textoCompletoCompiledSource} />
           </div>
         </section>
 
@@ -130,6 +133,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       ? letsCozinhaResult.value.letsCozinha.receitas_favoritas || []
       : [];
 
+  const textoCompletoResult = await serialize({
+    source: letsProfile.texto_completo ?? '',
+  });
+
   const asideData =
     asideDataResult.status === 'fulfilled'
       ? asideDataResult.value
@@ -144,6 +151,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
           ? JSON.parse(JSON.stringify(letsSchemaResult.value))
           : null,
       asideData,
+      textoCompletoCompiledSource:
+        'compiledSource' in textoCompletoResult ? textoCompletoResult.compiledSource : '',
     },
     revalidate: 3600,
   };

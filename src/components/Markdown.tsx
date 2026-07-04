@@ -1,6 +1,6 @@
-import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote-client/rsc';
+import { MDXClient, type MDXClientProps } from 'next-mdx-remote-client/csr';
 
-const components: MDXRemoteProps['components'] = {
+const components: MDXClientProps['components'] = {
   // break-words evita overflow horizontal com palavras/URLs longas do CMS;
   // tabelas viram blocos roláveis em vez de alargar a página no mobile
   wrapper: ({ children }) => (
@@ -10,9 +10,9 @@ const components: MDXRemoteProps['components'] = {
   ),
 };
 
-export function Markdown(props: MDXRemoteProps) {
+export function Markdown(props: MDXClientProps) {
   return (
-    <MDXRemote
+    <MDXClient
       {...props}
       components={{ ...components, ...(props.components || {}) }}
     />
